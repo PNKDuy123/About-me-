@@ -1,0 +1,82 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+.container{
+    text-align: center;
+    padding-top: 50px;
+}
+.Logo img{
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0px 11px 22px -9px #000000;
+}
+.TieuDe{
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.TieuDe h3{
+    padding-bottom: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.TieuDe p {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+body{
+    background: linear-gradient(135deg, #4ebaf4 0%, #ffffff 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.button{
+   margin-bottom: 20px;
+   background-color: white;
+   border: 0;
+   width: 300px;
+   padding: 15px 0;
+   border-radius: 50px;
+   font-family: 'Lora', serif;
+   font-weight: bold;
+   font-size: 15px;
+   transition-duration: 0.3s;
+   transition-property: color, background-color, transform, box-shadow;
+   box-shadow: 0px 11px 22px -9px #000000;
+   cursor: pointer;
+}
+.gird-container{
+    display: grid;
+    color: black;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-content: center;
+    gap : 15px;
+    margin-right: 50px;
+}
+.button:hover .gird-container,
+.button:hover .gird-container * {
+  color: white;
+}
+.gird-container i{
+    margin-left: 15px;
+    justify-self: flex-start;
+}
+.button:hover{
+    color: white;
+    background-color: #4ebaf4;
+    transform: translateY(-5px);
+    box-shadow: 0px 11px 22px -9px #000000;
+}
