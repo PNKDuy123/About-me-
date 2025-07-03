@@ -4,6 +4,72 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
+.my_favorite{
+    margin: 300px 0 250px 0;
+    flex-wrap: wrap;
+    transition: filter 0.5s ease;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap :30px;
+}
+.photo{
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    position: relative;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+.photo.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+.photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    object-fit: cover;       /* Cắt ảnh để vừa khung */
+    display: block;          /* Xóa khoảng trắng dưới ảnh */
+    border-radius: 12px; 
+}
+.photo:hover img {
+    transform: scale(1.5);
+}
+.caption{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size:18px;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 0;
+    border-right: 2px solid white;
+    opacity: 0;
+    transition: width 0.5s ease;
+}
+.photo:hover .caption{
+    width: 100%
+}
+body.blurred{
+    filter: blur(5px);
+}
+.section{
+    width: 100%;
+    padding: 100px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .container{
     text-align: center;
     padding-top: 50px;
@@ -79,4 +145,66 @@ body{
     background-color: #4ebaf4;
     transform: translateY(-5px);
     box-shadow: 0px 11px 22px -9px #000000;
+}
+.favorite-title {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.favorite-title h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0a0a0a;
+    font-family: 'Merriweather', serif;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.favorite-title h2::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: #4ebaf4;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 2px;
+}
+
+/* Hiệu ứng fade-in */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.scroll-button {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #4ebaf4;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-button i {
+    margin-left: 10px;
+}
+
+.scroll-button:hover {
+    background-color: #379dd4;
+    transform: translateY(-3px);
 }
