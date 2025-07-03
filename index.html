@@ -12,42 +12,140 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="Logo">
-            <img src="anh/Nội dung đoạn văn bản của bạn.png">
+    <section id="intro" class="LienHe">
+        <div class="container">
+            <div class="Logo">
+                <img src="anh/Nội dung đoạn văn bản của bạn.png">
+            </div>
+            <div class="TieuDe">
+                <h3>Phạm Duy</h3>
+                <p>💻 BackEnd Developer<br>Hoàng Sa,Trường Sa là của Việt Nam</p>
+            </div>
+            <button class="button" onclick="location.href = 'tel:+84 0372 746 451'" taget="_blank">
+                <div class="gird-container">
+                    <i class="fa-solid fa-phone"></i>&nbsp;Phone
+                </div>
+            </button>
+            <br>
+            <button class="button" onclick="location.href = 'mailto:khuongduy2017sl@gmail.com'" taget="_blank">
+                <div class="gird-container">
+                    <i class="fa-solid fa-envelope"></i>&nbsp;Email
+                </div>
+            </button>
+            <br>
+            <button class="button" onclick="location.href = 'https://www.facebook.com/ph.kduyy'" taget="_blank">
+                <div class="gird-container">
+                    <i class="fa-brands fa-facebook"></i>&nbsp;Facebook
+                </div>
+            </button>
+            <br>
+            <button class="button" onclick="location.href = 'https://www.instagram.com/_yudie_khuwg/'" taget="_blank">
+                <div class="gird-container">
+                    <i class="fa-brands fa-instagram"></i>&nbsp;Instagram
+                </div>
+            </button>
+            <br>
+            <button class="scroll-button" onclick="scrollToFavorite()">
+                Xem sở thích của tôi
+                <i class="fa-solid fa-arrow-down"></i>
+            </button>
         </div>
-        <div class="TieuDe">
-            <h3>Phạm Duy</h3>
-            <p>💻 BackEnd Developer<br>Hoàng Sa,Trường Sa là của Việt Nam</p>
+    </section>
+    <section id="favorite" class="my_favorite">
+        <div class="favorite-title">
+            <h2>My Favorite</h2>
         </div>
-        <button class="button" onclick="location.href = 'tel:+84 0372 746 451'" taget="_blank">
-            <div class="gird-container">
-                <i class="fa-solid fa-phone"></i>&nbsp;Phone
-            </div>
-        </button>
-        <br>
-        <button class="button" onclick="location.href = 'mailto:khuongduy2017sl@gmail.com'" taget="_blank">
-            <div class="gird-container">
-                <i class="fa-solid fa-envelope"></i>&nbsp;Email
-            </div>
-        </button>
-        <br>
-        <button class="button" onclick="location.href = 'https://www.facebook.com/ph.kduyy'" taget="_blank">
-            <div class="gird-container">
-                <i class="fa-brands fa-facebook"></i>&nbsp;Facebook
-            </div>
-        </button>
-        <br>
-        <button class="button" onclick="location.href = 'https://www.instagram.com/_yudie_khuwg/'" taget="_blank">
-            <div class="gird-container">
-                <i class="fa-brands fa-instagram"></i>&nbsp;Instagram
-            </div>
-        </button>
-        <br>
-    </div>
+        <div class="photo">
+            <img src="anh/Bi_A.png" alt="Bi-A">
+            <h3 class="caption">Haha,có chơi tuy không hay nhưng được cái mê lắm,thi thoảng lại làm tí thâu đêm chắc
+                không nghiện đâu ha :vv</h3>
+        </div>
+        <div class="photo">
+            <img src="anh/Cau_Long.png" alt="Cầu Lông">
+            <h3 class="caption">Môn này mê nè,nma dạo này không có thời gian để chơi nữa rồi,thi thoảng đánh lấy mồ hôi
+                thôi hihi,nma có rủ thì có đi nha:vv</h3>
+        </div>
+        <div class="photo">
+            <img src="anh/Di_Phuot.png" alt="Đi Phượt">
+            <h3 class="caption">Kể từ 2025 là bớt bớt rồi,sức khỏe thời gian tiền bạc nó khum cho phép,nma vẫn vui vì
+                trước đó mình từng chiều bản thân như thế nào :33</h3>
+        </div>
+    </section>
     <script>
-        alert("Xin chào, tôi là một lập trình viên web đang học HTML và JavaScript!");
+        const photos = document.querySelectorAll('.photo');
+
+        // Hiển thị ảnh lần lượt khi cuộn tới
+        const showPhotosSequentially = (elements, index = 0) => {
+            if (index >= elements.length) return;
+            elements[index].classList.add('show');
+            setTimeout(() => {
+                showPhotosSequentially(elements, index + 1);
+            }, 800);
+        };
+
+        // Khi .my_favorite cuộn vào màn hình
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    showPhotosSequentially(photos);
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.my_favorite'));
+
+        // Hover vào ảnh
+        photos.forEach(photo => {
+            const caption = photo.querySelector('.caption');
+            const originalCaption = caption.textContent.trim();
+            let typingInterval;
+
+            photo.addEventListener('mouseenter', () => {
+                // Làm mờ các ảnh khác
+                photos.forEach(p => {
+                    if (p !== photo) {
+                        p.style.filter = 'blur(4px)';
+                        p.style.opacity = '0.5';
+                    }
+                });
+
+                // Reset caption
+                caption.textContent = "";
+                caption.style.opacity = '1';
+                caption.style.width = 'auto';
+
+                let i = 0;
+                typingInterval = setInterval(() => {
+                    caption.textContent += originalCaption[i];
+                    i++;
+                    if (i === originalCaption.length) clearInterval(typingInterval);
+                }, 40);
+
+                // Lưu interval
+                photo.dataset.typingId = typingInterval;
+            });
+
+            photo.addEventListener('mouseleave', () => {
+                // Bỏ làm mờ
+                photos.forEach(p => {
+                    p.style.filter = 'none';
+                    p.style.opacity = '1';
+                });
+
+                clearInterval(photo.dataset.typingId);
+                caption.textContent = "";
+                caption.style.opacity = '0';
+                caption.style.width = '0';
+            });
+        });
+        function scrollToFavorite() {
+            document.querySelector("#favorite").scrollIntoView({ behavior: "smooth" });
+        }
+
     </script>
+
+
 </body>
 
 </html>
