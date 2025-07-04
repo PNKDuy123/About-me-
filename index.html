@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div class="cursor"></div> <!-- Lớp chuột -->
     <section id="intro" class="LienHe">
         <div class="container">
             <div class="Logo">
@@ -142,6 +143,35 @@
         function scrollToFavorite() {
             document.querySelector("#favorite").scrollIntoView({ behavior: "smooth" });
         }
+        // Hiệu ứng chuột
+        const cursor = document.querySelector(".cursor");
+        let lastHeartTime = 0; // tạo biến để lưu thời gian của lần cuối cùng chuột rơi trái tim
+        document.addEventListener("mousemove", (e) => { // sự kiện di chuyển chuột
+            cursor.style.left = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+
+            const currentTime = Date.now();
+            if (currentTime - lastHeartTime > 150) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.style.left = `${e.pageX}px`;
+                heart.style.top = `${e.pageY}px`;
+                document.body.appendChild(heart); // thêm trái tim vào body
+                setTimeout(() => heart.remove(), 2000); // xóa trái tim sau 2 giây
+                lastHeartTime = currentTime; // cập nhật thời gian của lần cuối cùng chuột rơi trái tim
+                heart.innerHTML = "❤️"; // thêm biểu tượng trái tim vào phần tử
+                heart.style.fontSize = "16px"; // đặt kích thước của trái tim
+                heart.style.color = "white"; // đặt màu sắc của trái tim
+            }
+        });
+        document.addEventListener("mousedown", () => {
+            cursor.style.width = "30px";
+            cursor.style.height = "30px";
+        });
+        document.addEventListener("mouseup", () => {
+            cursor.style.width = "20px";
+            cursor.style.height = "20px";
+        });
 
     </script>
 
