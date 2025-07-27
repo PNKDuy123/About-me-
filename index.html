@@ -8,46 +8,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
     <title>Đây là tôi</title>
 </head>
 
 <body>
-    <div class="cursor"></div> <!-- Lớp chuột -->
+    <div class="cursor"></div> <!--Lớp chuột -->
     <section id="intro" class="LienHe">
         <div class="container">
             <div class="Logo">
                 <img src="anh/Nội dung đoạn văn bản của bạn.png">
             </div>
+
             <div class="TieuDe">
+                <h1>Hii Everyone,I'm</h1>
                 <h3>Phạm Duy</h3>
-                <p>💻 BackEnd Developer<br>Hoàng Sa,Trường Sa là của Việt Nam</p>
+                <h4 id="type-it"></h4>
+                <p>Hoàng Sa,Trường Sa là của Việt Nam</p>
+                <p>Contact and Follow me on:</p>
             </div>
-            <button class="button" onclick="location.href = 'tel:+84 0372 746 451'" taget="_blank">
-                <div class="gird-container">
-                    <i class="fa-solid fa-phone"></i>&nbsp;Phone
-                </div>
-            </button>
-            <br>
-            <button class="button" onclick="location.href = 'mailto:khuongduy2017sl@gmail.com'" taget="_blank">
-                <div class="gird-container">
-                    <i class="fa-solid fa-envelope"></i>&nbsp;Email
-                </div>
-            </button>
-            <br>
-            <button class="button" onclick="location.href = 'https://www.facebook.com/ph.kduyy'" taget="_blank">
-                <div class="gird-container">
-                    <i class="fa-brands fa-facebook"></i>&nbsp;Facebook
-                </div>
-            </button>
-            <br>
-            <button class="button" onclick="location.href = 'https://www.instagram.com/_yudie_khuwg/'" taget="_blank">
-                <div class="gird-container">
-                    <i class="fa-brands fa-instagram"></i>&nbsp;Instagram
-                </div>
-            </button>
-            <br>
+            <div class="KhoiNut">
+                <button class="button" onclick="location.href = 'tel:+84 0372 746 451'" target="_blank">
+                    <div class="gird-container">
+                        <i class="fa-solid fa-phone"></i>&nbsp;
+                    </div>
+                </button>
+                <br>
+                <button class="button" onclick="location.href = 'mailto:khuongduy2017sl@gmail.com'" target="_blank">
+                    <div class="gird-container">
+                        <i class="fa-solid fa-envelope"></i>&nbsp;
+                    </div>
+                </button>
+                <br>
+                <button class="button" onclick="location.href = 'https://www.facebook.com/ph.kduyy'" target="_blank">
+                    <div class="gird-container">
+                        <i class="fa-brands fa-facebook"></i>&nbsp;
+                    </div>
+                </button>
+                <br>
+                <button class="button" onclick="location.href = 'https://www.instagram.com/_yudie_khuwg/'"
+                    target="_blank">
+                    <div class="gird-container">
+                        <i class="fa-brands fa-instagram"></i>&nbsp;
+                    </div>
+                </button>
+                <br>
+            </div>
             <button class="scroll-button" onclick="scrollToFavorite()">
-                Xem sở thích của tôi
+                See more
                 <i class="fa-solid fa-arrow-down"></i>
             </button>
         </div>
@@ -57,17 +67,17 @@
             <h2>My Favorite</h2>
         </div>
         <div class="photo">
-            <img src="anh/Bi_A.png" alt="Bi-A">
+            <div class="img"><img src="anh/Bi_A.png" alt="Bi-A"></div>
             <h3 class="caption">Haha,có chơi tuy không hay nhưng được cái mê lắm,thi thoảng lại làm tí thâu đêm chắc
                 không nghiện đâu ha :vv</h3>
         </div>
         <div class="photo">
-            <img src="anh/Cau_Long.png" alt="Cầu Lông">
+            <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div>
             <h3 class="caption">Môn này mê nè,nma dạo này không có thời gian để chơi nữa rồi,thi thoảng đánh lấy mồ hôi
                 thôi hihi,nma có rủ thì có đi nha:vv</h3>
         </div>
         <div class="photo">
-            <img src="anh/Di_Phuot.png" alt="Đi Phượt">
+            <div class="img"><img src="anh/Di_Phuot.png" alt="Đi Phượt"></div>
             <h3 class="caption">Kể từ 2025 là bớt bớt rồi,sức khỏe thời gian tiền bạc nó khum cho phép,nma vẫn vui vì
                 trước đó mình từng chiều bản thân như thế nào :33</h3>
         </div>
@@ -76,86 +86,111 @@
         const photos = document.querySelectorAll('.photo');
 
         // Hiển thị ảnh lần lượt khi cuộn tới
-        const showPhotosSequentially = (elements, index = 0) => {
-            if (index >= elements.length) return;
-            elements[index].classList.add('show');
-            setTimeout(() => {
-                showPhotosSequentially(elements, index + 1);
-            }, 800);
+        const showPhotosSequentially = (elements, index = 0) => { // Tạo hàm để hiển thị ảnh lần lượt
+            if (index >= elements.length) return;                 // Nếu đã hiển thị hết ảnh thì dừng lại
+            elements[index].classList.remove('hidden');           // Bỏ lớp ẩn khỏi ảnh
+            elements[index].classList.add('show');                // Thêm lớp hiển thị để áp dụng hiệu ứng
+            setTimeout(() => {                                    // Dùng lại sau 800ms để hiển thị ảnh tiếp theo
+                showPhotosSequentially(elements, index + 1);      // Gọi lại hàm để hiển thị ảnh tiếp theo
+            }, 800);                                              // Thời gian giữa các ảnh hiển thị
         };
 
         // Khi .my_favorite cuộn vào màn hình
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    showPhotosSequentially(photos);
-                    observer.disconnect();
+        const observer = new IntersectionObserver(entries => {    // Tạo observer để theo dõi khi .my_favorite xuất hiện trên
+            entries.forEach(entry => {                            // Duyệt qua từng entry
+                if (entry.isIntersecting) {                       // Nếu entry đang hiển thị
+                    showPhotosSequentially(photos);               // Gọi hàm để hiển thị ảnh
+                    observer.disconnect();                        // Ngắt observer để không hiển thị ảnh nhiều lần
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.5 });                                   // Ngưỡng 50% để kích hoạt observer
 
-        observer.observe(document.querySelector('.my_favorite'));
+        observer.observe(document.querySelector('.my_favorite')); // Bắt đầu theo dõi .my_favorite
 
+
+        // gsap.registerPulgin(ScrollTrigger);
+        // document.querySelector('.photo').forEach(photo => {
+        //     const img = photo.querySelector('.img');           // Lấy phần ảnh của class photo
+        //     const caption = photo.querySelector('.caption');   // Lấy phần caption của class photo
+        //     let tl = gsap.timeline({
+        //         ScrollTrigger: {
+        //             trigger: box,
+        //             start: "top 80%",
+        //             toggleAction: "play none none none"
+        //         }
+        //     });
+        //     tl.to(caption, {
+        //         opacity: 1,
+        //         y: 0,
+        //         duration: 1
+        //     });
+        //     tl.to(img, {
+        //         opacity: 1,
+        //         duration: 1,
+        //         delay: 0.5,
+        //         ease: "back"
+        //     })
+        // });
         // Hover vào ảnh
         photos.forEach(photo => {
-            const caption = photo.querySelector('.caption');
-            const originalCaption = caption.textContent.trim();
-            let typingInterval;
+            const caption = photo.querySelector('.caption');      // Lấy phầncaption của ảnh
+            const originalCaption = caption.textContent.trim();   // Lưu nội dung gốc của caption
+            let typingInterval;                                   // Biến để lưu interval gõ chữ
 
-            photo.addEventListener('mouseenter', () => {
+            photo.addEventListener('mouseenter', () => {          // Khi chuột vào ảnh
                 // Làm mờ các ảnh khác
-                photos.forEach(p => {
-                    if (p !== photo) {
-                        p.style.filter = 'blur(4px)';
-                        p.style.opacity = '0.5';
+                photos.forEach(p => {                             // Duyệt qua tất cả ảnh
+                    if (p !== photo) {                            // Nếu không phải ảnh hiện tại
+                        p.style.filter = 'blur(4px)';             // Làm mờ ảnh   
+                        p.style.opacity = '0.5';                  // Giảm độ mờ của ảnh 
                     }
                 });
 
-                // Reset caption
-                caption.textContent = "";
-                caption.style.opacity = '1';
-                caption.style.width = 'auto';
+                // Reset caption                                  // Xóa nội dung caption và bắt đầu gõ lại
+                caption.textContent = "";                         // Xóa nội dung caption        
+                caption.style.opacity = '1';                      // Hiển thị caption
+                caption.style.width = 'auto';                     // Đặt chiều rộng của caption tự động
 
-                let i = 0;
-                typingInterval = setInterval(() => {
-                    caption.textContent += originalCaption[i];
-                    i++;
-                    if (i === originalCaption.length) clearInterval(typingInterval);
-                }, 40);
+                let i = 0;                                        // Biến để theo dõi vị trí ký tự đang gõ
+                typingInterval = setInterval(() => {              // Bắt đầu interval để gõ chữ
+                    caption.textContent += originalCaption[i];    // Thêm ký tự vào caption
+                    i++;                                          // Tăng vị trí ký tự
+                    if (i === originalCaption.length) clearInterval(typingInterval); // Nếu đã gõ hết nội dung thì dừng interval
+                }, 40);                                                              // Thời gian giữa các ký tự gõ
 
                 // Lưu interval
-                photo.dataset.typingId = typingInterval;
+                photo.dataset.typingId = typingInterval;                             // Lưu interval vào dataset của ảnh
             });
 
-            photo.addEventListener('mouseleave', () => {
+            photo.addEventListener('mouseleave', () => {                             // Khi chuột rời khỏi ảnh
                 // Bỏ làm mờ
-                photos.forEach(p => {
-                    p.style.filter = 'none';
-                    p.style.opacity = '1';
+                photos.forEach(p => {                                                // Duyệt qua tất cả ảnh
+                    p.style.filter = 'none';                                         // Bỏ làm mờ ảnh
+                    p.style.opacity = '1';                                           // Đặt độ mờ về 1
                 });
 
-                clearInterval(photo.dataset.typingId);
-                caption.textContent = "";
-                caption.style.opacity = '0';
-                caption.style.width = '0';
+                clearInterval(photo.dataset.typingId);                               // Dừng interval gõ chữ nếu có
+                caption.textContent = "";                                            // Xóa nội dung caption
+                caption.style.opacity = '0';                                         // Ẩn caption
+                caption.style.width = '0';                                           // Đặt chiều rộng của caption về 0
             });
         });
-        function scrollToFavorite() {
-            document.querySelector("#favorite").scrollIntoView({ behavior: "smooth" });
+        function scrollToFavorite() {                                                   // Hàm để cuộn đến phần sở thích
+            document.querySelector("#favorite").scrollIntoView({ behavior: "smooth" }); // Cuộn đến phần sở thích
         }
         // Hiệu ứng chuột
         const cursor = document.querySelector(".cursor");
         let lastHeartTime = 0; // tạo biến để lưu thời gian của lần cuối cùng chuột rơi trái tim
         document.addEventListener("mousemove", (e) => { // sự kiện di chuyển chuột
-            cursor.style.left = `${e.pageX}px`;
-            cursor.style.top = `${e.pageY}px`;
+            cursor.style.left = `${e.pageX}px`; // đặt vị trí của chuột
+            cursor.style.top = `${e.pageY}px`;  // đặt vị trí của chuột
 
-            const currentTime = Date.now();
-            if (currentTime - lastHeartTime > 150) {
-                const heart = document.createElement("div");
-                heart.className = "heart";
-                heart.style.left = `${e.pageX}px`;
-                heart.style.top = `${e.pageY}px`;
+            const currentTime = Date.now();     // lấy thời gian hiện tại
+            if (currentTime - lastHeartTime > 150) { // nếu thời gian hiện tại - thời gian lần cuối cùng chuột rơi trái tim lớn hơn 150 giây
+                const heart = document.createElement("div"); // tạo phần tử div
+                heart.className = "heart"; // đặt tên class cho div
+                heart.style.left = `${e.pageX}px`; // đặt vị trí của trái tim
+                heart.style.top = `${e.pageY}px`;  // đặt vị trí của trái tim
                 document.body.appendChild(heart); // thêm trái tim vào body
                 setTimeout(() => heart.remove(), 2000); // xóa trái tim sau 2 giây
                 lastHeartTime = currentTime; // cập nhật thời gian của lần cuối cùng chuột rơi trái tim
@@ -172,6 +207,25 @@
             cursor.style.width = "20px";
             cursor.style.height = "20px";
         });
+
+        //Hàm viết xóa chữ
+        new TypeIt("#type-it", {
+            speed: 100,
+            deleteSpeed: 50,
+            loop: true,
+            cursorSpeed: 800
+        })
+            .type("💻 BackEnd Developer")
+            .pause(1000)
+            .delete()
+            .type("27 Điện Biên =))")
+            .pause(1000)
+            .delete()
+            .type("Uneti-er :v")
+            .pause(1000)
+            .delete()
+            .go();
+
 
     </script>
 
