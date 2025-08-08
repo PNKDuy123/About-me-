@@ -26,7 +26,8 @@ header{
     background-color: rgba(255, 255, 255, 0.3); /* header mờ trong suốt */
     backdrop-filter: blur(10px);                /* mờ phần tử bị che bên dưới */
     -webkit-backdrop-filter: blur(10px);        /* hỗ trợ Safari */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);  
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    flex-wrap: wrap; 
 }
 .Menu ul{ 
     display: flex;
@@ -569,7 +570,7 @@ body.blurred{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-  /* Mobile Styles */
+/* Mobile Styles */
 @media (max-width: 768px) {
     header {
         padding: 8px 12px;
@@ -601,13 +602,29 @@ body.blurred{
     }
     
     .NutLienHe {
-        padding: 5px 10px;
-        font-size: 12px;
-        margin-top: 5px;
+        font-size: 14px;
+        padding: 8px 18px;
     }
     
-    .LienHe {
-        padding-top: 140px; /* để tránh bị header che */
+    
+        .LienHe {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 140px 20px 40px; /* đủ khoảng cách tránh header che */
+        text-align: center;
+    }
+
+    .LienHe h2 {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .LienHe p {
+        font-size: 15px;
+        line-height: 1.5;
+        max-width: 85%;
     }
     
     .container {
@@ -688,7 +705,7 @@ body.blurred{
         font-size: 12px;
         padding: 5px;
     }
-}
+  }
 
 @media (max-width: 480px) {
     header {
@@ -707,15 +724,28 @@ body.blurred{
         font-size: 11px;
     }
     
-    .LienHe {
-        padding-top: 120px;
+     .LienHe {
+        gap: 15px;
+        padding: 130px 15px 30px; /* giảm padding-top một chút cho màn nhỏ */
     }
-    
+
+    .LienHe h2 {
+        font-size: 18px;
+    }
+
+    .LienHe p {
+        font-size: 14px;
+        max-width: 90%;
+    }
+
     .Logo img {
         width: 150px;
         height: auto;
     }
-    
+    .NutLienHe {
+        font-size: 13px;
+        padding: 7px 15px;
+    }
     .TieuDe h1 {
         font-size: 16px;
     }
@@ -745,4 +775,3 @@ body.blurred{
         height: 130px;
     }
 }
-
