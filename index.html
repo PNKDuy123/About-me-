@@ -15,6 +15,22 @@
 </head>
 
 <body>
+    <header>
+        <div class="TenWeb">
+            <a class="TextTieuDe">KhuogDuyy</a>
+        </div>
+        <div class="Menu">
+            <ul>
+                <li><a class="nav-link" onclick="scrollToSection('intro')" data-target="intro">Home</a></li>
+                <li><a class="nav-link" onclick="scrollToSection('favorite')" data-target="favorite">About</a></li>
+                <li><a class="nav-link" href="">Skills</a></li>
+                <li><a class="nav-link" href="">Projects</a></li>
+            </ul>
+        </div>
+        <div class="Contact">
+            <a href="mailto:khuongduy2017sl@gmail.com" class="NutLienHe">Contact me</a>
+        </div>
+    </header>
     <div class="cursor"></div> <!--Lớp chuột -->
     <section id="intro" class="LienHe">
         <div class="container">
@@ -56,35 +72,48 @@
                 </button>
                 <br>
             </div>
-            <button class="scroll-button" onclick="scrollToFavorite()">
+            <!-- <button class="scroll-button" onclick="scrollToFavorite()">
                 See more
                 <i class="fa-solid fa-arrow-down"></i>
-            </button>
+            </button> -->
         </div>
     </section>
     <section id="favorite" class="my_favorite">
         <div class="favorite-title">
-            <h2>My Favorite</h2>
+            <h2>About me</h2>
         </div>
-        <div class="photo">
-            <div class="img"><img src="anh/Bi_A.png" alt="Bi-A"></div>
-            <h3 class="caption">Haha,có chơi tuy không hay nhưng được cái mê lắm,thi thoảng lại làm tí thâu đêm chắc
-                không nghiện đâu ha :vv</h3>
+        <div class="DongMoTa">
+            <h4>Hello,I'm</h4>
+            <p>Phạm Ngọc Khương Duy</p>
+            <p>Tôi hiện tại đang là sinh viên năm 4 trường Kinh tế Kỹ thuật Công nghiệp Hà Nội,đây là một project nho
+                nhỏ thỏa mãn niềm đam mê của tôi với lập trình,các bạn xem và đóng góp ý kiến qua email cho tôi nhé,đóng
+                góp của bạn là là niềm vinh dự đối với tôi ! :>></p>
         </div>
-        <div class="photo">
-            <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div>
-            <h3 class="caption">Môn này mê nè,nma dạo này không có thời gian để chơi nữa rồi,thi thoảng đánh lấy mồ hôi
-                thôi hihi,nma có rủ thì có đi nha:vv</h3>
+        <div class="favorite_content">
+            <div class="photo">
+                <div class="img"><img src="anh/Bi_A.png" alt="Bi-A"></div>
+                <h3 class="caption">Haha,có chơi tuy không hay nhưng được cái mê lắm,thi thoảng lại làm tí thâu đêm chắc
+                    không nghiện đâu ha :vv</h3>
+            </div>
+            <div class="photo">
+                <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div>
+                <h3 class="caption">Môn này mê nè,nma dạo này không có thời gian để chơi nữa rồi,thi thoảng đánh lấy mồ
+                    hôi
+                    thôi hihi,nma có rủ thì có đi nha:vv</h3>
+            </div>
+            <div class="photo">
+                <div class="img"><img src="anh/Di_Phuot.png" alt="Đi Phượt"></div>
+                <h3 class="caption">Kể từ 2025 là bớt bớt rồi,sức khỏe thời gian tiền bạc nó khum cho phép,nma vẫn vui
+                    vì
+                    trước đó mình từng chiều bản thân như thế nào :33</h3>
+            </div>
         </div>
-        <div class="photo">
-            <div class="img"><img src="anh/Di_Phuot.png" alt="Đi Phượt"></div>
-            <h3 class="caption">Kể từ 2025 là bớt bớt rồi,sức khỏe thời gian tiền bạc nó khum cho phép,nma vẫn vui vì
-                trước đó mình từng chiều bản thân như thế nào :33</h3>
-        </div>
+
+
     </section>
     <script>
         const photos = document.querySelectorAll('.photo');
-
+        const title = document.querySelectorAll('.favorite-title');
         // Hiển thị ảnh lần lượt khi cuộn tới
         const showPhotosSequentially = (elements, index = 0) => { // Tạo hàm để hiển thị ảnh lần lượt
             if (index >= elements.length) return;                 // Nếu đã hiển thị hết ảnh thì dừng lại
@@ -94,43 +123,26 @@
                 showPhotosSequentially(elements, index + 1);      // Gọi lại hàm để hiển thị ảnh tiếp theo
             }, 800);                                              // Thời gian giữa các ảnh hiển thị
         };
-
+        const showTextAboutme = (elements, index = 0) => {
+            if (index >= elements.length) return;
+            elements[index].classList.remove('hidden');
+            elements[index].classList.add('show');
+            setTimeout(() => {
+                showTextAboutme(elements, index + 1);
+            }, 800);
+        }
         // Khi .my_favorite cuộn vào màn hình
         const observer = new IntersectionObserver(entries => {    // Tạo observer để theo dõi khi .my_favorite xuất hiện trên
             entries.forEach(entry => {                            // Duyệt qua từng entry
                 if (entry.isIntersecting) {                       // Nếu entry đang hiển thị
-                    showPhotosSequentially(photos);               // Gọi hàm để hiển thị ảnh
+                    showPhotosSequentially(photos);
+                    showTextAboutme(title);              // Gọi hàm để hiển thị ảnh
                     observer.disconnect();                        // Ngắt observer để không hiển thị ảnh nhiều lần
                 }
             });
-        }, { threshold: 0.5 });                                   // Ngưỡng 50% để kích hoạt observer
+        }, { threshold: 0.2 });                                   // Ngưỡng 50% để kích hoạt observer
 
         observer.observe(document.querySelector('.my_favorite')); // Bắt đầu theo dõi .my_favorite
-
-
-        // gsap.registerPulgin(ScrollTrigger);
-        // document.querySelector('.photo').forEach(photo => {
-        //     const img = photo.querySelector('.img');           // Lấy phần ảnh của class photo
-        //     const caption = photo.querySelector('.caption');   // Lấy phần caption của class photo
-        //     let tl = gsap.timeline({
-        //         ScrollTrigger: {
-        //             trigger: box,
-        //             start: "top 80%",
-        //             toggleAction: "play none none none"
-        //         }
-        //     });
-        //     tl.to(caption, {
-        //         opacity: 1,
-        //         y: 0,
-        //         duration: 1
-        //     });
-        //     tl.to(img, {
-        //         opacity: 1,
-        //         duration: 1,
-        //         delay: 0.5,
-        //         ease: "back"
-        //     })
-        // });
         // Hover vào ảnh
         photos.forEach(photo => {
             const caption = photo.querySelector('.caption');      // Lấy phầncaption của ảnh
@@ -175,8 +187,18 @@
                 caption.style.width = '0';                                           // Đặt chiều rộng của caption về 0
             });
         });
-        function scrollToFavorite() {                                                   // Hàm để cuộn đến phần sở thích
-            document.querySelector("#favorite").scrollIntoView({ behavior: "smooth" }); // Cuộn đến phần sở thích
+        //Hàm cuộn tới section
+        function scrollToSection(id) {
+            const taget = document.getElementById(id);
+            if (!taget) return;
+            const chieucaoHeader = 66;
+            const khoachcachSectionvaDinh = taget.getBoundingClientRect().top;
+            const toadocuontoi = khoachcachSectionvaDinh + window.pageYOffset - chieucaoHeader;
+            window.scrollTo({
+                top: toadocuontoi,
+                behavior: "smooth"
+            });
+
         }
         // Hiệu ứng chuột
         const cursor = document.querySelector(".cursor");
@@ -225,7 +247,40 @@
             .pause(1000)
             .delete()
             .go();
+        //Hàm click vào LoGo
+        document.addEventListener('DOMContentLoaded', function () {
+            const logo = document.querySelector('.Logo img');
+            logo.addEventListener('click', function () {
+                // Gỡ class cũ nếu có để tái kích hoạt animation
+                logo.classList.remove('jello-horizontal');
 
+                // Trigger lại hiệu ứng bằng cách dùng setTimeout
+                void logo.offsetWidth; // force reflow
+                logo.classList.add('jello-horizontal');
+            });
+        });
+        //HÀM TÔ MÀU MENU Ở SECTION TƯƠNG ỨNG
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.dataset.target === current) {
+                    link.classList.add("active");
+                }
+            });
+        });
 
     </script>
 
