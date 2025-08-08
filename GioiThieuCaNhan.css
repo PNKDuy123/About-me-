@@ -570,166 +570,179 @@ body.blurred{
   background: #555;
 }
   /* Mobile Styles */
-        @media (max-width: 768px) {
-            header {
-                padding: 10px 15px;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .TextTieuDe {
-                font-size: 18px;
-            }
-            
-            .Menu ul {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .Menu li a {
-                font-size: 13px;
-            }
-            
-            .NutLienHe {
-                padding: 6px 12px;
-                font-size: 11px;
-            }
-            
-            .LienHe {
-                padding: 120px 15px 20px;
-            }
-            
-            .container {
-                flex-direction: column;
-                text-align: center;
-                gap: 30px;
-            }
-            
-            .Logo img {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .content-wrapper {
-                align-items: center;
-            }
-            
-            .TieuDe h1 {
-                font-size: 20px;
-            }
-            
-            .TieuDe h3 {
-                font-size: 28px;
-            }
-            
-            .TieuDe h4 {
-                font-size: 16px;
-            }
-            
-            .TieuDe p {
-                font-size: 14px;
-            }
-            
-            .KhoiNut {
-                justify-content: center;
-                gap: 8px;
-            }
-            
-            .button {
-                width: 50px;
-                height: 30px;
-            }
-            
-            .button:hover {
-                width: 100px;
-            }
-            
-            .my_favorite {
-                padding: 40px 15px 30px;
-            }
-            
-            .favorite-title h2 {
-                font-size: 24px;
-            }
-            
-            .DongMoTa h4 {
-                font-size: 18px;
-            }
-            
-            .DongMoTa p {
-                font-size: 14px;
-            }
-            
-            .favorite_content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .photo {
-                width: 100%;
-                max-width: 300px;
-                height: 150px;
-            }
-            
-            .caption {
-                font-size: 12px;
-                padding: 6px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            header {
-                padding: 8px 10px;
-            }
-            
-            .TextTieuDe {
-                font-size: 16px;
-            }
-            
-            .Menu ul {
-                gap: 10px;
-            }
-            
-            .Menu li a {
-                font-size: 12px;
-            }
-            
-            .LienHe {
-                padding: 100px 10px 15px;
-            }
-            
-            .Logo img {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .TieuDe h1 {
-                font-size: 18px;
-            }
-            
-            .TieuDe h3 {
-                font-size: 24px;
-            }
-            
-            .TieuDe h4 {
-                font-size: 14px;
-            }
-            
-            .button {
-                width: 45px;
-                height: 28px;
-            }
-            
-            .button:hover {
-                width: 90px;
-            }
-            
-            .favorite-title h2 {
-                font-size: 20px;
-            }
-            
-            .photo {
-                height: 130px;
-            }
-        }
+@media (max-width: 768px) {
+    header {
+        padding: 8px 12px;
+        flex-direction: column;
+        gap: 10px;
+        position: fixed;
+    }
+    
+    .TextTieuDe {
+        font-size: 16px;
+        text-align: center;
+        margin: 0;
+        padding: 8px 0;
+    }
+    
+    .Menu ul {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .Menu li {
+        width: auto;
+    }
+    
+    .Menu li a {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+    
+    .NutLienHe {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    
+    .LienHe {
+        padding-top: 140px; /* để tránh bị header che */
+    }
+    
+    .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+    
+    .Logo {
+        margin: 0;
+        position: relative;
+        animation: none;
+    }
+
+    .Logo img {
+        width: 180px;
+        height: auto;
+    }
+    
+    .TieuDe {
+        position: relative;
+        margin: 10px 0 0;
+    }
+
+    .TieuDe h1 {
+        font-size: 18px;
+    }
+    
+    .TieuDe h3 {
+        font-size: 22px;
+    }
+    
+    .TieuDe h4 {
+        font-size: 14px;
+    }
+    
+    .TieuDe p {
+        font-size: 14px;
+    }
+    
+    .KhoiNut {
+        margin: 20px 0 0;
+        position: relative;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .button {
+        width: 45px;
+        height: 28px;
+    }
+    
+    .button:hover {
+        width: 90px;
+    }
+    
+    .my_favorite {
+        padding: 30px 10px 20px;
+    }
+    
+    .favorite-title h2 {
+        font-size: 22px;
+    }
+    
+    .favorite_content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .photo {
+        width: 100%;
+        max-width: 300px;
+        height: 150px;
+    }
+    
+    .caption {
+        font-size: 12px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 6px 8px;
+    }
+    
+    .TextTieuDe {
+        font-size: 14px;
+    }
+    
+    .Menu ul {
+        gap: 8px;
+    }
+    
+    .Menu li a {
+        font-size: 11px;
+    }
+    
+    .LienHe {
+        padding-top: 120px;
+    }
+    
+    .Logo img {
+        width: 150px;
+        height: auto;
+    }
+    
+    .TieuDe h1 {
+        font-size: 16px;
+    }
+    
+    .TieuDe h3 {
+        font-size: 20px;
+    }
+    
+    .TieuDe h4 {
+        font-size: 13px;
+    }
+    
+    .button {
+        width: 40px;
+        height: 26px;
+    }
+    
+    .button:hover {
+        width: 80px;
+    }
+    
+    .favorite-title h2 {
+        font-size: 18px;
+    }
+    
+    .photo {
+        height: 130px;
+    }
+}
+
