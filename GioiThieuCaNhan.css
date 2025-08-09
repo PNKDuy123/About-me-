@@ -5,13 +5,19 @@
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
 }
+
+/* Đảm bảo tất cả hình ảnh responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
 body{
     background: linear-gradient(135deg, #4ebaf4 0%, #ffffff 100%);
     min-height: 100vh;
     /* display: flex;
     align-items: center;
     flex-direction: column; */
-    
+    overflow-x: hidden; /* Ngăn cuộn ngang trên thiết bị di động */
 }
 header{
     top: 0;
@@ -29,6 +35,21 @@ header{
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
     flex-wrap: wrap; 
 }
+
+@media screen and (max-width: 768px) {
+    header {
+        padding: 10px 20px;
+        flex-direction: column;
+    }
+    
+    .TenWeb {
+        margin-bottom: 10px;
+    }
+    
+    .Contact {
+        margin-top: 10px;
+    }
+}
 .Menu ul{ 
     display: flex;
     align-items: center;
@@ -36,6 +57,14 @@ header{
     list-style: none;
     flex : 2;
     gap:100px;
+}
+
+@media screen and (max-width: 768px) {
+    .Menu ul {
+        gap: 20px;
+        justify-content: center;
+        padding: 10px 0;
+    }
 }
 .TextTieuDe{
   margin-left: 0;
@@ -130,6 +159,13 @@ header{
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-decoration: none;
 }
+
+@media screen and (max-width: 768px) {
+    .NutLienHe {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+}
 .NutLienHe:hover{
      transform: scale(1.05);
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -145,16 +181,76 @@ header{
     align-items: center;
     flex-direction: column; */
 }
+
+@media screen and (max-width: 768px) {
+    .LienHe {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 20px 40px;
+    }
+    
+    .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .Logo img {
+        max-width: 200px;
+        margin: 0 auto 20px;
+    }
+    
+    .TieuDe h1, .TieuDe h3, .TieuDe h4 {
+        text-align: center;
+    }
+    
+    .KhoiNut {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .KhoiNut .button {
+        margin: 0 10px;
+    }
+}
 .my_favorite{
     width: 100%;
     height: 100vh;
     transition: filter 0.5s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .my_favorite {
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
 }
 .favorite_content{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .favorite_content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .favorite-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .DongMoTa {
+        text-align: center;
+        padding: 0 15px;
+        margin-bottom: 30px;
+    }
 }
 .photo{
     width: 300px;
@@ -166,6 +262,14 @@ header{
     opacity: 0;
     transition: all 1s ease;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .photo {
+        width: 90%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
 }
 .photo.show{
     opacity: 1;
@@ -199,6 +303,14 @@ header{
     opacity: 0;
     transition: width 0.5s ease;
 }
+
+@media screen and (max-width: 768px) {
+    .caption {
+        font-size: 14px;
+        bottom: 5px;
+        left: 5px;
+    }
+}
 .photo:hover .caption{
     width: 100%;
 }
@@ -209,12 +321,30 @@ body.blurred{
     position: relative;
     padding-top: 50px;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 .Logo{
     margin-left: 1000px;
     margin-top: 100px;
     position: absolute;
     animation: lenxuongavt 2s infinite;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .Logo {
+        position: relative;
+        margin-left: 0;
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
 }
 .Logo img{
     width: 300px;
@@ -232,6 +362,27 @@ body.blurred{
     margin-top: 150px;
     /* margin-bottom: 300px; */
     margin-left: 300px;
+}
+
+@media screen and (max-width: 768px) {
+    .TieuDe {
+        position: relative;
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0 15px;
+    }
+    
+    .TieuDe h1 {
+        font-size: 24px;
+    }
+    
+    .TieuDe h3 {
+        font-size: 36px;
+    }
+    
+    .TieuDe h4 {
+        font-size: 20px;
+    }
 }
 .TieuDe h1{
     font-size: 30px;
@@ -266,6 +417,16 @@ body.blurred{
     position: absolute;
     display: flex;
     gap:2px;
+}
+
+@media screen and (max-width: 768px) {
+    .KhoiNut {
+        position: relative;
+        margin-top: 30px;
+        margin-left: 0;
+        justify-content: center;
+        gap: 10px;
+    }
 }
 .button{
     display: flex;
@@ -705,8 +866,14 @@ body.blurred{
         font-size: 12px;
         padding: 5px;
     }
+    
+    /* Ẩn hiệu ứng chuột trên thiết bị di động */
+    .cursor, .heart {
+        display: none;
+    }
   }
 
+/* Thêm quy tắc responsive cho các thiết bị nhỏ hơn */
 @media (max-width: 480px) {
     header {
         padding: 6px 8px;
@@ -724,7 +891,7 @@ body.blurred{
         font-size: 11px;
     }
     
-     .LienHe {
+    .LienHe {
         gap: 15px;
         padding: 130px 15px 30px; /* giảm padding-top một chút cho màn nhỏ */
     }
@@ -735,6 +902,77 @@ body.blurred{
 
     .LienHe p {
         font-size: 14px;
+        max-width: 90%;
+    }
+
+    .Logo img {
+        width: 150px;
+    }
+    
+    .NutLienHe {
+        font-size: 13px;
+        padding: 7px 15px;
+    }
+    
+    .TieuDe h1 {
+        font-size: 16px;
+    }
+    
+    .TieuDe h3 {
+        font-size: 20px;
+    }
+    
+    .TieuDe h4 {
+        font-size: 13px;
+    }
+    
+    .button {
+        width: 40px;
+        height: 26px;
+    }
+    
+    .button:hover {
+        width: 80px;
+    }
+    
+    .favorite-title h2 {
+        font-size: 18px;
+    }
+    
+    .photo {
+        height: 130px;
+    }
+}
+
+/* Thêm quy tắc cho thiết bị rất nhỏ */
+@media (max-width: 320px) {
+    header {
+        padding: 6px 8px;
+    }
+    
+    .TextTieuDe {
+        font-size: 14px;
+    }
+    
+    .Menu ul {
+        gap: 8px;
+    }
+    
+    .Menu li a {
+        font-size: 11px;
+    }
+    
+    .LienHe {
+        gap: 15px;
+        padding: 130px 15px 30px; /* giảm padding-top một chút cho màn nhỏ */
+    }
+
+    .LienHe h2 {
+        font-size: 18px;
+    }
+
+    .LienHe p {
+        font-size: 18px;
         max-width: 90%;
     }
 
