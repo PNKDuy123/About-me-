@@ -33,21 +33,33 @@ header{
     backdrop-filter: blur(10px);                /* mờ phần tử bị che bên dưới */
     -webkit-backdrop-filter: blur(10px);        /* hỗ trợ Safari */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-    flex-wrap: wrap; 
 }
 
 @media screen and (max-width: 768px) {
     header {
         padding: 10px 20px;
-        flex-direction: column;
+        flex-wrap: wrap;
     }
     
     .TenWeb {
+        width: 100%;
+        text-align: center;
         margin-bottom: 10px;
     }
     
+    .Menu {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
     .Contact {
-        margin-top: 10px;
+        width: 30%;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
 .Menu ul{ 
@@ -55,8 +67,9 @@ header{
     align-items: center;
     flex-direction: row;
     list-style: none;
-    flex : 2;
     gap:100px;
+    margin: 0;
+    padding: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -370,6 +383,8 @@ body.blurred{
         margin-left: 0;
         margin-top: 0;
         padding: 0 15px;
+        width: 100%;
+        text-align: center;
     }
     
     .TieuDe h1 {
@@ -382,6 +397,12 @@ body.blurred{
     
     .TieuDe h4 {
         font-size: 20px;
+    }
+    
+    .TieuDe p {
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
     }
 }
 .TieuDe h1{
@@ -425,7 +446,45 @@ body.blurred{
         margin-top: 30px;
         margin-left: 0;
         justify-content: center;
-        gap: 10px;
+        gap: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .KhoiNut br {
+        display: none; /* Ẩn thẻ br trên thiết bị di động */
+    }
+    
+    /* Cải thiện hiển thị nút trên thiết bị di động */
+    .button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 5px;
+        justify-content: center;
+    }
+    
+    .button:hover {
+        width: 50px; /* Giữ nguyên kích thước khi hover */
+        flex: 1;
+    }
+    
+    .gird-container i {
+        font-size: 20px;
+        margin: 0;
+    }
+    
+    .button:hover .gird-container i {
+        margin-left: 0; /* Giữ icon ở giữa khi hover */
+    }
+    
+    /* Ẩn text khi hover trên thiết bị di động */
+    .button:hover .gird-container > i.fa-phone::after,
+    .button:hover .gird-container > i.fa-envelope::after,
+    .button:hover .gird-container > i.fa-facebook::after,
+    .button:hover .gird-container > i.fa-instagram::after {
+        display: none;
     }
 }
 .button{
@@ -441,9 +500,9 @@ body.blurred{
     transform-origin: left;
     transition: all 0.5s ease;
     cursor: pointer;
-    flex :1;
+    flex: 1;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center; /* Căn giữa nội dung */
 }
 .button:hover{
     color: white;
@@ -458,8 +517,8 @@ body.blurred{
     color: black;
     grid-template-columns:1fr auto 1fr;
     align-items: center;
-    /* justify-content: center; */
-    /* margin-right: 50px; */
+    justify-content: center; /* Căn giữa nội dung */
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng của nút */
 }
 .button:hover .gird-container,
 .button:hover .gird-container * {
@@ -508,11 +567,12 @@ body.blurred{
 }
 
 .gird-container i{
-    margin-left: 30px;
+    margin-left: 0;
     margin-right: 0;
     transition: transform 0.4s ease;
-    
+    font-size: 18px; /* Kích thước icon phù hợp */
 }
+
 .button:hover .gird-container i{
     margin-left: 20px;
     margin-right: 0;
@@ -965,6 +1025,37 @@ body.blurred{
     .LienHe {
         gap: 15px;
         padding: 130px 15px 30px; /* giảm padding-top một chút cho màn nhỏ */
+    }
+    
+    /* Cải thiện hiển thị nút trên thiết bị rất nhỏ */
+    .button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 5px;
+    }
+    
+    .button:hover {
+        width: 40px; /* Giữ nguyên kích thước khi hover */
+        flex: 1;
+    }
+    
+    .gird-container i {
+        font-size: 16px;
+        margin: 0;
+    }
+    
+    .button:hover .gird-container i {
+        margin-left: 0; /* Giữ icon ở giữa khi hover */
+    }
+    
+    /* Ẩn text khi hover trên thiết bị rất nhỏ */
+    .button:hover .gird-container > i.fa-phone::after,
+    .button:hover .gird-container > i.fa-envelope::after,
+    .button:hover .gird-container > i.fa-facebook::after,
+    .button:hover .gird-container > i.fa-instagram::after {
+        display: none;
     }
 
     .LienHe h2 {
