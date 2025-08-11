@@ -80,211 +80,94 @@
     </section>
     <section id="favorite" class="my_favorite">
         <div class="favorite-title">
-            <h2>About me</h2>
-        </div>
-        <div class="DongMoTa">
-            <h4>Hello,I'm</h4>
-            <p>Phạm Ngọc Khương Duy</p>
-            <p>Tôi hiện tại đang là sinh viên năm 4 trường Kinh tế Kỹ thuật Công nghiệp Hà Nội,đây là một project nho
-                nhỏ thỏa mãn niềm đam mê của tôi với lập trình,các bạn xem và đóng góp ý kiến qua email cho tôi nhé,đóng
-                góp của bạn là là niềm vinh dự đối với tôi ! :>></p>
-        </div>
-        <div class="favorite_content">
-            <div class="photo">
-                <div class="img"><img src="anh/Bi_A.png" alt="Bi-A"></div>
-                <h3 class="caption">Haha,có chơi tuy không hay nhưng được cái mê lắm,thi thoảng lại làm tí thâu đêm chắc
-                    không nghiện đâu ha :vv</h3>
-            </div>
-            <div class="photo">
-                <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div>
-                <h3 class="caption">Môn này mê nè,nma dạo này không có thời gian để chơi nữa rồi,thi thoảng đánh lấy mồ
-                    hôi
-                    thôi hihi,nma có rủ thì có đi nha:vv</h3>
-            </div>
-            <div class="photo">
-                <div class="img"><img src="anh/Di_Phuot.png" alt="Đi Phượt"></div>
-                <h3 class="caption">Kể từ 2025 là bớt bớt rồi,sức khỏe thời gian tiền bạc nó khum cho phép,nma vẫn vui
-                    vì
-                    trước đó mình từng chiều bản thân như thế nào :33</h3>
-            </div>
+            <h2>About Me</h2>
         </div>
 
+        <div class="favorite-container">
+            <!-- Phần bên trái - About Me -->
+            <div class="about-me-section">
+                <div class="DongMoTa">
+                    <h4>Hello, I'm</h4>
+                    <p class="name">Phạm Ngọc Khương Duy</p>
+                    <p class="bio">Tôi là một lập trình viên đam mê khám phá và thử nghiệm công nghệ mới, đặc biệt yêu
+                        thích xây dựng các dự án từ backend đến frontend. Ngoài công việc lập trình, tôi luôn tìm cách
+                        nâng cao kỹ năng qua việc học thêm ngôn ngữ mới, framework mới và áp dụng vào các dự án thực tế.
+                        Tôi cũng là người mê đi phượt, thích trải nghiệm những cung đường mới và tìm cảm hứng từ những
+                        chuyến đi để áp dụng vào công việc sáng tạo. Đối với tôi, lập trình không chỉ là công việc mà
+                        còn là hành trình liên tục học hỏi, giải quyết vấn đề và tạo ra những giá trị thực tế. Mục tiêu
+                        của tôi là trở thành một lập trình viên toàn diện, vừa vững kiến thức kỹ thuật vừa linh hoạt
+                        trong tư duy, để có thể chinh phục mọi thử thách — kể cả những deadline “khó nhằn” nhất.</p>
 
+                </div>
+                <div class="NutCV">
+                    <button class="Download">
+                        <i class="fa-solid fa-file-arrow-down"></i> Download CV
+                    </button>
+                    <button class="ViewProject">
+                        <i class="fa-solid fa-code"></i> View Projects
+                    </button>
+                </div>
+                <div class="KhungKinhNghiem">
+                    <div class="Khung ToalPj">
+                        <i class="fas fa-code"></i>
+                        <h2>TOTAL PROJECTS</h2>
+                        <h4>Tổng dự án đã tham gia</h4>
+                        <p>11</p>
+                    </div>
+                    <div class="Khung BangCap">
+                        <i class="fas fa-award"></i>
+                        <h2>CERTIFICATES</h2>
+                        <h4>Những chứng chỉ</h4>
+                        <p>7</p>
+                    </div>
+                    <div class="Khung NamKinhNghiem">
+                        <i class="fas fa-globe"></i>
+                        <h2>YEAR OF EXPERIENCE</h2>
+                        <h4>Số năm kinh nghiệm</h4>
+                        <p>1</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần bên phải - Sở thích -->
+            <div class="interests-container">
+                <div class="interests-section">
+                    <h3 class="interests-title">Sở Thích Của Tôi</h3>
+                </div>
+
+                <div class="favorite_content">
+                    <div class="hobbies-container">
+                        <div class="card Bia">
+                            <h2>Billiards</h2>
+                            <p>Billiards - Tuy không chơi hay nhưng rất đam mê, thỉnh thoảng
+                                thức đêm để chơi.</p>
+                            <span>Hover here</span>
+                            <div class="pic"></div>
+                            <button></button>
+                        </div>
+                        <div class="card Phuot">
+                            <h2>Phượt</h2>
+                            <p>Phượt - Niềm đam mê khám phá những vùng đất mới, tạo ra những kỷ
+                                niệm đáng nhớ.</p>
+                            <span>Hover here</span>
+                            <div class="pic"></div>
+                            <button></button>
+                        </div>
+                        <div class="card CauLong">
+                            <h2>Cầu lông</h2>
+                            <!-- <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div> -->
+                            <p>Cầu lông - Môn thể thao yêu thích, dù bận rộn vẫn cố gắng dành
+                                thời gian chơi.</p>
+                            <span>Hover here</span>
+                            <div class="pic"></div>
+                            <button></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    <script>
-        const photos = document.querySelectorAll('.photo');
-        const title = document.querySelectorAll('.favorite-title');
-        // Hiển thị ảnh lần lượt khi cuộn tới
-        const showPhotosSequentially = (elements, index = 0) => { // Tạo hàm để hiển thị ảnh lần lượt
-            if (index >= elements.length) return;                 // Nếu đã hiển thị hết ảnh thì dừng lại
-            elements[index].classList.remove('hidden');           // Bỏ lớp ẩn khỏi ảnh
-            elements[index].classList.add('show');                // Thêm lớp hiển thị để áp dụng hiệu ứng
-            setTimeout(() => {                                    // Dùng lại sau 800ms để hiển thị ảnh tiếp theo
-                showPhotosSequentially(elements, index + 1);      // Gọi lại hàm để hiển thị ảnh tiếp theo
-            }, 800);                                              // Thời gian giữa các ảnh hiển thị
-        };
-        const showTextAboutme = (elements, index = 0) => {
-            if (index >= elements.length) return;
-            elements[index].classList.remove('hidden');
-            elements[index].classList.add('show');
-            setTimeout(() => {
-                showTextAboutme(elements, index + 1);
-            }, 800);
-        }
-        // Khi .my_favorite cuộn vào màn hình
-        const observer = new IntersectionObserver(entries => {    // Tạo observer để theo dõi khi .my_favorite xuất hiện trên
-            entries.forEach(entry => {                            // Duyệt qua từng entry
-                if (entry.isIntersecting) {                       // Nếu entry đang hiển thị
-                    showPhotosSequentially(photos);
-                    showTextAboutme(title);              // Gọi hàm để hiển thị ảnh
-                    observer.disconnect();                        // Ngắt observer để không hiển thị ảnh nhiều lần
-                }
-            });
-        }, { threshold: 0.2 });                                   // Ngưỡng 50% để kích hoạt observer
-
-        observer.observe(document.querySelector('.my_favorite')); // Bắt đầu theo dõi .my_favorite
-        // Hover vào ảnh
-        photos.forEach(photo => {
-            const caption = photo.querySelector('.caption');      // Lấy phầncaption của ảnh
-            const originalCaption = caption.textContent.trim();   // Lưu nội dung gốc của caption
-            let typingInterval;                                   // Biến để lưu interval gõ chữ
-
-            photo.addEventListener('mouseenter', () => {          // Khi chuột vào ảnh
-                // Làm mờ các ảnh khác
-                photos.forEach(p => {                             // Duyệt qua tất cả ảnh
-                    if (p !== photo) {                            // Nếu không phải ảnh hiện tại
-                        p.style.filter = 'blur(4px)';             // Làm mờ ảnh   
-                        p.style.opacity = '0.5';                  // Giảm độ mờ của ảnh 
-                    }
-                });
-
-                // Reset caption                                  // Xóa nội dung caption và bắt đầu gõ lại
-                caption.textContent = "";                         // Xóa nội dung caption        
-                caption.style.opacity = '1';                      // Hiển thị caption
-                caption.style.width = 'auto';                     // Đặt chiều rộng của caption tự động
-
-                let i = 0;                                        // Biến để theo dõi vị trí ký tự đang gõ
-                typingInterval = setInterval(() => {              // Bắt đầu interval để gõ chữ
-                    caption.textContent += originalCaption[i];    // Thêm ký tự vào caption
-                    i++;                                          // Tăng vị trí ký tự
-                    if (i === originalCaption.length) clearInterval(typingInterval); // Nếu đã gõ hết nội dung thì dừng interval
-                }, 40);                                                              // Thời gian giữa các ký tự gõ
-
-                // Lưu interval
-                photo.dataset.typingId = typingInterval;                             // Lưu interval vào dataset của ảnh
-            });
-
-            photo.addEventListener('mouseleave', () => {                             // Khi chuột rời khỏi ảnh
-                // Bỏ làm mờ
-                photos.forEach(p => {                                                // Duyệt qua tất cả ảnh
-                    p.style.filter = 'none';                                         // Bỏ làm mờ ảnh
-                    p.style.opacity = '1';                                           // Đặt độ mờ về 1
-                });
-
-                clearInterval(photo.dataset.typingId);                               // Dừng interval gõ chữ nếu có
-                caption.textContent = "";                                            // Xóa nội dung caption
-                caption.style.opacity = '0';                                         // Ẩn caption
-                caption.style.width = '0';                                           // Đặt chiều rộng của caption về 0
-            });
-        });
-        //Hàm cuộn tới section
-        function scrollToSection(id) {
-            const taget = document.getElementById(id);
-            if (!taget) return;
-            const chieucaoHeader = 66;
-            const khoachcachSectionvaDinh = taget.getBoundingClientRect().top;
-            const toadocuontoi = khoachcachSectionvaDinh + window.pageYOffset - chieucaoHeader;
-            window.scrollTo({
-                top: toadocuontoi,
-                behavior: "smooth"
-            });
-
-        }
-        // Hiệu ứng chuột
-        const cursor = document.querySelector(".cursor");
-        let lastHeartTime = 0; // tạo biến để lưu thời gian của lần cuối cùng chuột rơi trái tim
-        document.addEventListener("mousemove", (e) => { // sự kiện di chuyển chuột
-            cursor.style.left = `${e.pageX}px`; // đặt vị trí của chuột
-            cursor.style.top = `${e.pageY}px`;  // đặt vị trí của chuột
-
-            const currentTime = Date.now();     // lấy thời gian hiện tại
-            if (currentTime - lastHeartTime > 150) { // nếu thời gian hiện tại - thời gian lần cuối cùng chuột rơi trái tim lớn hơn 150 giây
-                const heart = document.createElement("div"); // tạo phần tử div
-                heart.className = "heart"; // đặt tên class cho div
-                heart.style.left = `${e.pageX}px`; // đặt vị trí của trái tim
-                heart.style.top = `${e.pageY}px`;  // đặt vị trí của trái tim
-                document.body.appendChild(heart); // thêm trái tim vào body
-                setTimeout(() => heart.remove(), 2000); // xóa trái tim sau 2 giây
-                lastHeartTime = currentTime; // cập nhật thời gian của lần cuối cùng chuột rơi trái tim
-                heart.innerHTML = "❤️"; // thêm biểu tượng trái tim vào phần tử
-                heart.style.fontSize = "16px"; // đặt kích thước của trái tim
-                heart.style.color = "white"; // đặt màu sắc của trái tim
-            }
-        });
-        document.addEventListener("mousedown", () => {
-            cursor.style.width = "30px";
-            cursor.style.height = "30px";
-        });
-        document.addEventListener("mouseup", () => {
-            cursor.style.width = "20px";
-            cursor.style.height = "20px";
-        });
-
-        //Hàm viết xóa chữ
-        new TypeIt("#type-it", {
-            speed: 100,
-            deleteSpeed: 50,
-            loop: true,
-            cursorSpeed: 800
-        })
-            .type("💻 BackEnd Developer")
-            .pause(1000)
-            .delete()
-            .type("27 Điện Biên =))")
-            .pause(1000)
-            .delete()
-            .type("Uneti-er :v")
-            .pause(1000)
-            .delete()
-            .go();
-        //Hàm click vào LoGo
-        document.addEventListener('DOMContentLoaded', function () {
-            const logo = document.querySelector('.Logo img');
-            logo.addEventListener('click', function () {
-                // Gỡ class cũ nếu có để tái kích hoạt animation
-                logo.classList.remove('jello-horizontal');
-
-                // Trigger lại hiệu ứng bằng cách dùng setTimeout
-                void logo.offsetWidth; // force reflow
-                logo.classList.add('jello-horizontal');
-            });
-        });
-        //HÀM TÔ MÀU MENU Ở SECTION TƯƠNG ỨNG
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".nav-link");
-
-        window.addEventListener("scroll", () => {
-            let current = "";
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                if (window.scrollY >= sectionTop - sectionHeight / 3) {
-                    current = section.getAttribute("id");
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove("active");
-                if (link.dataset.target === current) {
-                    link.classList.add("active");
-                }
-            });
-        });
-
-    </script>
-
-
+    <script src="GioiThieuCaNhan.js"></script>
 </body>
 
 </html>
