@@ -1,606 +1,584 @@
-// const photos = document.querySelectorAll(".pic"); // Chọn đúng các phần tử ảnh
-// const title = document.querySelectorAll(".favorite-title");
-// const hobbiesContainer = document.querySelector(".hobbies-container");
-
-// // Hiển thị ảnh lần lượt khi cuộn tới
-// const showPhotosSequentially = (elements, index = 0) => {
-//   if (index >= elements.length) return;
-//   elements[index].classList.add("show");
-//   setTimeout(() => {
-//     showPhotosSequentially(elements, index + 1);
-//   }, 300);
-// };
-
-// const showTextAboutme = (elements, index = 0) => {
-//   if (index >= elements.length) return;
-//   elements[index].classList.add("show");
-//   setTimeout(() => {
-//     showTextAboutme(elements, index + 1);
-//   }, 300);
-// };
-
-// // Tạo Intersection Observer cho từng ảnh với hiệu ứng mượt mà hơn
-// const createPhotoObserver = () => {
-//   const photoObserver = new IntersectionObserver(
-//     (entries) => {
-//       entries.forEach((entry, index) => {
-//         if (entry.isIntersecting) {
-//           const photo = entry.target;
-//           // Thêm độ trễ tăng dần cho mỗi ảnh để tạo hiệu ứng lần lượt
-//           const delay = 150 * (index % 3); // Mỗi cột có độ trễ khác nhau
-//           setTimeout(() => {
-//             photo.classList.add("show");
-//           }, delay);
-//           photoObserver.unobserve(photo);
-//         }
-//       });
-//     },
-//     { threshold: 0.15, rootMargin: "0px 0px -50px 0px" } // Tăng ngưỡng và thêm rootMargin
-//   );
-
-//   // Theo dõi tất cả các ảnh
-//   photos.forEach((photo) => {
-//     photoObserver.observe(photo);
-//   });
-// };
-
-// // Khi .my_favorite cuộn vào màn hình
-// const sectionObserver = new IntersectionObserver(
-//   (entries) => {
-//     entries.forEach((entry) => {
-//       if (entry.isIntersecting) {
-//         showTextAboutme(title);
-//         // Thêm hiệu ứng cho hobbies-container với độ trễ
-//         setTimeout(() => {
-//           hobbiesContainer.classList.add("show");
-//         }, 300);
-//         createPhotoObserver();
-//         sectionObserver.disconnect();
-//       }
-//     });
-//   },
-//   { threshold: 0.1 }
-// );
-
-// sectionObserver.observe(document.querySelector(".my_favorite")); // Bắt đầu theo dõi .my_favorite
-const photos = document.querySelectorAll(".pic"); // Chọn đúng các phần tử ảnh
-const title = document.querySelectorAll(".favorite-title");
-const hobbiesContainer = document.querySelector(".hobbies-container");
-
-// Hiển thị từng phần tử lần lượt
-const showSequentially = (elements, index = 0, delay = 300, callback) => {
-  if (index >= elements.length) {
-    if (callback) callback();
-    return;
+// Performance Manager Class
+class PerformanceManager {
+  constructor() {
+    this.animations = new Map();
+    this.observers = new Map();
+    this.cachedElements = {};
+    this.init();
   }
-  elements[index].classList.add("show");
-  setTimeout(() => {
-    showSequentially(elements, index + 1, delay, callback);
-  }, delay);
-};
 
-// Hiển thị ảnh lần lượt
-const showPhotosSequentially = (elements, index = 0) => {
-  if (index >= elements.length) return;
-  elements[index].classList.add("show");
-  setTimeout(() => {
-    showPhotosSequentially(elements, index + 1);
-  }, 300);
-};
+  init() {
+    this.cacheElements();
+    this.setupEventListeners();
+    this.setupGSAPAnimations();
+    this.setupTypeIt();
+    this.setupLogoClick();
+    this.setupCursorEffects();
+  }
 
-// Intersection Observer cho ảnh
-const createPhotoObserver = () => {
-  const photoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          photoObserver.unobserve(entry.target);
+  cacheElements() {
+    this.cachedElements = {
+      photos: document.querySelectorAll(".pic"),
+      title: document.querySelectorAll(".favorite-title"),
+      hobbiesContainer: document.querySelector(".hobbies-container"),
+      sections: document.querySelectorAll("#intro,#favorite,#skills"),
+      navLinks: document.querySelectorAll(".nav-link"),
+      allSections: document.querySelectorAll("section"),
+      cursor: document.querySelector(".cursor"),
+      logo: document.querySelector(".Logo img"),
+    };
+  }
+
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  throttle(func, limit) {
+    let inThrottle;
+    return function (...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
+
+  setupEventListeners() {
+    // Scroll highlight menu
+    const handleScroll = this.debounce(() => {
+      this.updateActiveNavigation();
+    }, 16);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Resize -> refresh ScrollTrigger
+    window.addEventListener(
+      "resize",
+      this.debounce(() => {
+        if (typeof ScrollTrigger !== "undefined") {
+          ScrollTrigger.refresh();
         }
-      });
-    },
-    { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
-  );
+      }, 250),
+      { passive: true }
+    );
 
-  photos.forEach((photo) => photoObserver.observe(photo));
+    // Section observers
+    this.setupObservers();
+  }
 
-  // Sau khi đã quan sát, bắt đầu hiện tuần tự
-  showPhotosSequentially(photos);
-};
+  updateActiveNavigation() {
+    let current = "";
+    const { allSections, navLinks } = this.cachedElements;
 
-// Khi .my_favorite cuộn vào màn hình
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // B1: Hiện title
-        showSequentially(title, 0, 300, () => {
-          // B2: Sau khi title xong thì hiện hobbies-container
-          hobbiesContainer.classList.add("show");
-
-          // B3: Delay một chút rồi mới hiện ảnh
-          setTimeout(() => {
-            createPhotoObserver();
-          }, 400);
-        });
-
-        sectionObserver.disconnect();
+    allSections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (window.scrollY >= sectionTop - sectionHeight / 3) {
+        current = section.getAttribute("id");
       }
     });
-  },
-  { threshold: 0.5 }
-);
 
-sectionObserver.observe(document.querySelector(".my_favorite"));
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.dataset.target === current) {
+        link.classList.add("active");
+      }
+    });
+  }
 
-//Hàm cuộn tới section
+  setupObservers() {
+    const { photos, title, hobbiesContainer, sections } = this.cachedElements;
+
+    // Show elements sequentially
+    const showSequentially = (elements, index = 0, delay = 300, callback) => {
+      if (index >= elements.length) {
+        if (callback) callback();
+        return;
+      }
+      requestAnimationFrame(() => {
+        elements[index].classList.add("show");
+        setTimeout(() => {
+          showSequentially(elements, index + 1, delay, callback);
+        }, delay);
+      });
+    };
+
+    const showPhotosSequentially = (elements, index = 0) => {
+      if (index >= elements.length) return;
+      requestAnimationFrame(() => {
+        elements[index].classList.add("show");
+        setTimeout(() => {
+          showPhotosSequentially(elements, index + 1);
+        }, 300);
+      });
+    };
+
+    // Photo observer
+    const createPhotoObserver = () => {
+      const photoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const photos = entry.target.querySelectorAll(".photo");
+              showPhotosSequentially(photos);
+              photoObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+      );
+
+      this.observers.set("photo", photoObserver);
+      photos.forEach((photo) => photoObserver.observe(photo));
+      showPhotosSequentially(photos);
+    };
+
+    // Main section observer
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            showSequentially(title, 0, 300, () => {
+              hobbiesContainer.classList.add("show");
+              setTimeout(() => {
+                createPhotoObserver();
+              }, 400);
+            });
+            sectionObserver.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    this.observers.set("main", sectionObserver);
+    sectionObserver.observe(document.querySelector(".my_favorite"));
+
+    // General observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    this.observers.set("general", observer);
+    sections.forEach((sec) => observer.observe(sec));
+  }
+
+  setupTypeIt() {
+    if (typeof TypeIt !== "undefined") {
+      new TypeIt("#type-it", {
+        speed: 100,
+        deleteSpeed: 50,
+        loop: true,
+        cursorSpeed: 800,
+      })
+        .type("💻 BackEnd Developer")
+        .pause(1000)
+        .delete()
+        .type("27 Điện Biên =))")
+        .pause(1000)
+        .delete()
+        .type("Uneti-er :v")
+        .pause(1000)
+        .delete()
+        .go();
+    }
+  }
+
+  setupLogoClick() {
+    const { logo } = this.cachedElements;
+    if (logo) {
+      logo.addEventListener("click", function () {
+        logo.classList.remove("jello-horizontal");
+        void logo.offsetWidth; // Force reflow
+        logo.classList.add("jello-horizontal");
+      });
+    }
+  }
+
+  setupCursorEffects() {
+    const isMobile =
+      window.innerWidth <= 768 ||
+      /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    if (isMobile) return;
+
+    const { cursor } = this.cachedElements;
+    if (!cursor) return;
+
+    let lastHeartTime = 0;
+    let heartPool = [];
+
+    // Create heart pool (10 hearts)
+    for (let i = 0; i < 10; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.fontSize = "16px";
+      heart.style.color = "white";
+      heart.style.display = "none";
+      document.body.appendChild(heart);
+      heartPool.push(heart);
+    }
+
+    let currentHeartIndex = 0;
+
+    const createHeart = (x, y) => {
+      const heart = heartPool[currentHeartIndex];
+      currentHeartIndex = (currentHeartIndex + 1) % heartPool.length;
+
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      heart.style.display = "block";
+      heart.style.animation = "none";
+
+      requestAnimationFrame(() => {
+        heart.style.animation = "heartFloat 2s ease-out forwards";
+        setTimeout(() => {
+          heart.style.display = "none";
+        }, 2000);
+      });
+    };
+
+    const handleMouseMove = this.throttle((e) => {
+      cursor.style.left = `${e.pageX}px`;
+      cursor.style.top = `${e.pageY}px`;
+
+      const currentTime = Date.now();
+      if (currentTime - lastHeartTime > 200) {
+        createHeart(e.pageX, e.pageY);
+        lastHeartTime = currentTime;
+      }
+    }, 16);
+
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    document.addEventListener(
+      "mousedown",
+      () => {
+        cursor.style.width = "30px";
+        cursor.style.height = "30px";
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "mouseup",
+      () => {
+        cursor.style.width = "20px";
+        cursor.style.height = "20px";
+      },
+      { passive: true }
+    );
+  }
+
+  setupGSAPAnimations() {
+    if (typeof gsap === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const tl = gsap.timeline();
+
+      tl.fromTo(
+        "header",
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.2 }
+      )
+        .fromTo(
+          ".Logo img",
+          { opacity: 0, scale: 0.8, rotation: -10 },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+            delay: 0.5,
+          },
+          "-=0.5"
+        )
+        .fromTo(
+          [".TieuDe h1", ".TieuDe h3", ".TieuDe h4"],
+          { opacity: 0, x: -100 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.2,
+          },
+          "-=0.8"
+        )
+        .fromTo(
+          ".TieuDe p",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.2,
+          },
+          "-=0.4"
+        )
+        .fromTo(
+          ".KhoiNut .button",
+          { opacity: 0, x: 100, scale: 0.8 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: "back.out(1.7)",
+            stagger: 0.1,
+          },
+          "-=0.4"
+        );
+      gsap.fromTo(
+        ".about-me-section",
+        {
+          opacity: 0,
+          x: -100,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".about-me-section",
+            start: "top 80%",
+            end: "top 30%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".name",
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".DongMoTa",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".bio",
+        {
+          opacity: 0,
+          y: 40,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".DongMoTa",
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".NutCV button",
+        {
+          opacity: 0,
+          y: 30,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: ".NutCV",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+      gsap.fromTo(
+        ".favorite_content.active li",
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: ".favorite_content.active ",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+      ScrollTrigger.batch(".hobbies-container .card", {
+        onEnter: (elements) => {
+          gsap.fromTo(
+            elements,
+            { opacity: 0, y: 60, rotationX: 15 },
+            {
+              opacity: 1,
+              y: 0,
+              rotationX: 0,
+              stagger: 0.3,
+              duration: 0.8,
+              ease: "power2.out",
+            }
+          );
+        },
+        once: true,
+        start: "top 80%",
+      });
+
+      ScrollTrigger.batch(".KhungKinhNghiem .Khung", {
+        onEnter: (elements) => {
+          gsap.fromTo(
+            elements,
+            { opacity: 0, y: 50, scale: 0.8 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              stagger: 0.2,
+              duration: 0.8,
+              ease: "back.out(1.7)",
+            }
+          );
+        },
+        once: true,
+        start: "top 80%",
+      });
+
+      ScrollTrigger.refresh();
+    });
+  }
+
+  cleanup() {
+    this.animations.forEach((animation) => {
+      if (animation.kill) animation.kill();
+    });
+    this.animations.clear();
+
+    this.observers.forEach((observer) => {
+      if (observer.disconnect) observer.disconnect();
+    });
+    this.observers.clear();
+  }
+}
+
+// Initialize
+const perfManager = new PerformanceManager();
+
+// Smooth Scroll Function
 function scrollToSection(id) {
-  const taget = document.getElementById(id);
-  if (!taget) return;
-  const chieucaoHeader = 66;
-  const khoachcachSectionvaDinh = taget.getBoundingClientRect().top;
-  const toadocuontoi =
-    khoachcachSectionvaDinh + window.pageYOffset - chieucaoHeader;
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  const headerHeight = 66;
+  const sectionTop = target.getBoundingClientRect().top;
+  const scrollTop = sectionTop + window.pageYOffset - headerHeight;
+
   window.scrollTo({
-    top: toadocuontoi,
+    top: scrollTop,
     behavior: "smooth",
   });
 }
-// Hiệu ứng chuột
-const cursor = document.querySelector(".cursor");
-let lastHeartTime = 0; // tạo biến để lưu thời gian của lần cuối cùng chuột rơi trái tim
-document.addEventListener("mousemove", (e) => {
-  // sự kiện di chuyển chuột
-  cursor.style.left = `${e.pageX}px`; // đặt vị trí của chuột
-  cursor.style.top = `${e.pageY}px`; // đặt vị trí của chuột
 
-  const currentTime = Date.now(); // lấy thời gian hiện tại
-  if (currentTime - lastHeartTime > 150) {
-    // nếu thời gian hiện tại - thời gian lần cuối cùng chuột rơi trái tim lớn hơn 150 giây
-    const heart = document.createElement("div"); // tạo phần tử div
-    heart.className = "heart"; // đặt tên class cho div
-    heart.style.left = `${e.pageX}px`; // đặt vị trí của trái tim
-    heart.style.top = `${e.pageY}px`; // đặt vị trí của trái tim
-    document.body.appendChild(heart); // thêm trái tim vào body
-    setTimeout(() => heart.remove(), 2000); // xóa trái tim sau 2 giây
-    lastHeartTime = currentTime; // cập nhật thời gian của lần cuối cùng chuột rơi trái tim
-    heart.innerHTML = "❤️"; // thêm biểu tượng trái tim vào phần tử
-    heart.style.fontSize = "16px"; // đặt kích thước của trái tim
-    heart.style.color = "white"; // đặt màu sắc của trái tim
+// Cleanup before unload
+window.addEventListener("beforeunload", () => {
+  perfManager.cleanup();
+});
+
+//Hàm mở tab
+function openTab(event, tabId) {
+  // Ẩn tất cả content
+  document
+    .querySelectorAll(".favorite_content")
+    .forEach((c) => c.classList.remove("active"));
+  // Bỏ active ở tất cả nút
+  document
+    .querySelectorAll(".tab-link")
+    .forEach((b) => b.classList.remove("active"));
+
+  // Bật tab được chọn
+  const actieContent = document.getElementById(tabId);
+  actieContent.classList.add("active");
+  event.currentTarget.classList.add("active");
+
+  //Gọi animate cho tab vừa mở
+  if (tabId === "skills_id") {
+    animateTabContent(actieContent);
+  } else {
+    // 👉 Nếu không phải skills thì kill toàn bộ tween của skills
+    gsap.killTweensOf("#skills_id li");
+    gsap.set("#skills_id li", { clearProps: "all" }); // reset style nếu cần
   }
-});
-document.addEventListener("mousedown", () => {
-  cursor.style.width = "30px";
-  cursor.style.height = "30px";
-});
-document.addEventListener("mouseup", () => {
-  cursor.style.width = "20px";
-  cursor.style.height = "20px";
-});
-
-//Hàm viết xóa chữ
-new TypeIt("#type-it", {
-  speed: 100,
-  deleteSpeed: 50,
-  loop: true,
-  cursorSpeed: 800,
-})
-  .type("💻 BackEnd Developer")
-  .pause(1000)
-  .delete()
-  .type("27 Điện Biên =))")
-  .pause(1000)
-  .delete()
-  .type("Uneti-er :v")
-  .pause(1000)
-  .delete()
-  .go();
-//Hàm click vào LoGo
-document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.querySelector(".Logo img");
-  logo.addEventListener("click", function () {
-    // Gỡ class cũ nếu có để tái kích hoạt animation
-    logo.classList.remove("jello-horizontal");
-
-    // Trigger lại hiệu ứng bằng cách dùng setTimeout
-    void logo.offsetWidth; // force reflow
-    logo.classList.add("jello-horizontal");
-  });
-});
-//HÀM TÔ MÀU MENU Ở SECTION TƯƠNG ỨNG
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-link");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    if (window.scrollY >= sectionTop - sectionHeight / 3) {
-      current = section.getAttribute("id");
-    }
+}
+function animateTabContent(tabEl) {
+  // Reset trạng thái ban đầu để GSAP có cái mà animate
+  gsap.set(tabEl.querySelectorAll(".favorite_content.active li"), {
+    opacity: 0,
+    y: 30,
   });
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.dataset.target === current) {
-      link.classList.add("active");
-    }
-  });
-});
-
-// Đăng ký plugin ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
-// Đợi DOM load xong
-document.addEventListener("DOMContentLoaded", function () {
-  // Hiệu ứng fade in cho header
+  // Tạo lại animation GSAP cho content đang active
   gsap.fromTo(
-    "header",
-    {
-      opacity: 0,
-      y: -50,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out",
-      delay: 0.2,
-    }
-  );
-
-  // Hiệu ứng fade in cho logo trong intro section
-  gsap.fromTo(
-    ".Logo img",
-    {
-      opacity: 0,
-      scale: 0.8,
-      rotation: -10,
-    },
-    {
-      opacity: 1,
-      scale: 1,
-      rotation: 0,
-      duration: 1.2,
-      ease: "back.out(1.7)",
-      delay: 0.5,
-    }
-  );
-
-  // Hiệu ứng fade in cho tiêu đề chính
-  gsap.fromTo(
-    ".TieuDe h1",
-    {
-      opacity: 0,
-      x: -100,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      delay: 0.7,
-    }
-  );
-
-  gsap.fromTo(
-    ".TieuDe h3",
-    {
-      opacity: 0,
-      x: -80,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      delay: 0.9,
-    }
-  );
-
-  gsap.fromTo(
-    ".TieuDe h4",
-    {
-      opacity: 0,
-      x: -60,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      delay: 1.1,
-    }
-  );
-
-  // Hiệu ứng fade in cho paragraphs
-  gsap.fromTo(
-    ".TieuDe p",
-    {
-      opacity: 0,
-      y: 30,
-    },
+    tabEl.querySelectorAll(".favorite_content.active li"),
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
       duration: 0.6,
-      ease: "power2.out",
-      delay: 1.3,
-      stagger: 0.2,
-    }
-  );
-
-  // Hiệu ứng fade in cho các nút contact
-  gsap.fromTo(
-    ".KhoiNut .button",
-    {
-      opacity: 0,
-      x: 100,
-      scale: 0.8,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      duration: 0.6,
-      ease: "back.out(1.7)",
-      delay: 1.5,
-      stagger: 0.1,
-    }
-  );
-
-  // Hiệu ứng fade in cho About Me section khi scroll
-  gsap.fromTo(
-    ".favorite-title h2",
-    {
-      opacity: 0,
-      y: 50,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".my_favorite",
-        start: "top 80%",
-        end: "top 30%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho phần About Me content
-  gsap.fromTo(
-    ".about-me-section",
-    {
-      opacity: 0,
-      x: -100,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".about-me-section",
-        start: "top 80%",
-        end: "top 30%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho tên và bio
-  gsap.fromTo(
-    ".name",
-    {
-      opacity: 0,
-      y: 30,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".DongMoTa",
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  gsap.fromTo(
-    ".bio",
-    {
-      opacity: 0,
-      y: 40,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".DongMoTa",
-        start: "top 70%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho các nút CV
-  gsap.fromTo(
-    ".NutCV button",
-    {
-      opacity: 0,
-      y: 30,
-      scale: 0.9,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.6,
       ease: "back.out(1.7)",
       stagger: 0.2,
       scrollTrigger: {
-        trigger: ".NutCV",
+        trigger: tabEl,
         start: "top 80%",
         toggleActions: "play none none reverse",
       },
     }
   );
 
-  // Hiệu ứng fade in cho khung kinh nghiệm
-  gsap.fromTo(
-    ".KhungKinhNghiem .Khung",
-    {
-      opacity: 0,
-      y: 50,
-      scale: 0.8,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: "back.out(1.7)",
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: ".KhungKinhNghiem",
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho phần sở thích
-  gsap.fromTo(
-    ".interests-container",
-    {
-      opacity: 0,
-      x: 100,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".interests-container",
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho tiêu đề sở thích
-  gsap.fromTo(
-    ".interests-title",
-    {
-      opacity: 0,
-      y: 30,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".interests-section",
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng fade in cho các card sở thích
-  gsap.fromTo(
-    ".hobbies-container .card",
-    {
-      opacity: 0,
-      y: 60,
-      rotationX: 15,
-    },
-    {
-      opacity: 1,
-      y: 0,
-      rotationX: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: ".hobbies-container",
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-
-  // Hiệu ứng hover cho các card (tùy chọn)
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-      gsap.to(card, {
-        scale: 1.05,
-        y: -10,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    });
-
-    card.addEventListener("mouseleave", () => {
-      gsap.to(card, {
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    });
-  });
-
-  // Hiệu ứng fade in cho cursor (nếu có)
-  if (document.querySelector(".cursor")) {
-    gsap.set(".cursor", {
-      opacity: 0,
-      scale: 0,
-    });
-
-    gsap.to(".cursor", {
-      opacity: 1,
-      scale: 1,
-      duration: 0.5,
-      ease: "power2.out",
-      delay: 2,
-    });
-  }
-
-  // Animation tổng thể cho toàn bộ trang khi load
-  gsap.fromTo(
-    "body",
-    {
-      opacity: 0,
-    },
-    {
-      opacity: 1,
-      duration: 0.5,
-      ease: "power2.out",
-    }
-  );
-
-  // Refresh ScrollTrigger sau khi tất cả animation được thiết lập
-  ScrollTrigger.refresh();
-});
-
-// Hàm để làm mới ScrollTrigger khi cần thiết
-function refreshScrollTrigger() {
+  // Refresh lại ScrollTrigger cho chắc chắn
   ScrollTrigger.refresh();
 }
-
-// Gọi refresh khi window resize
-window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
-});
