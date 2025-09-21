@@ -11,6 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
     <title>Đây là tôi</title>
 </head>
 
@@ -23,7 +26,7 @@
             <ul>
                 <li><a class="nav-link" onclick="scrollToSection('intro')" data-target="intro">Home</a></li>
                 <li><a class="nav-link" onclick="scrollToSection('favorite')" data-target="favorite">About</a></li>
-                <li><a class="nav-link" href="">Skills</a></li>
+                <li><a class="nav-link" onclick="scrollToSection('skills')" data-target="skills"> Skills</a></li>
                 <li><a class="nav-link" href="">Projects</a></li>
             </ul>
         </div>
@@ -72,10 +75,6 @@
                 </button>
                 <br>
             </div>
-            <!-- <button class="scroll-button" onclick="scrollToFavorite()">
-                See more
-                <i class="fa-solid fa-arrow-down"></i>
-            </button> -->
         </div>
     </section>
     <section id="favorite" class="my_favorite">
@@ -128,45 +127,66 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Phần bên phải - Sở thích -->
-            <div class="interests-container">
-                <div class="interests-section">
-                    <h3 class="interests-title">Sở Thích Của Tôi</h3>
-                </div>
-
-                <div class="favorite_content">
-                    <div class="hobbies-container">
-                        <div class="card Bia">
-                            <h2>Billiards</h2>
-                            <p>Billiards - Tuy không chơi hay nhưng rất đam mê, thỉnh thoảng
-                                thức đêm để chơi.</p>
-                            <span>Hover here</span>
-                            <div class="pic"></div>
-                            <button></button>
-                        </div>
-                        <div class="card Phuot">
-                            <h2>Phượt</h2>
-                            <p>Phượt - Niềm đam mê khám phá những vùng đất mới, tạo ra những kỷ
-                                niệm đáng nhớ.</p>
-                            <span>Hover here</span>
-                            <div class="pic"></div>
-                            <button></button>
-                        </div>
-                        <div class="card CauLong">
-                            <h2>Cầu lông</h2>
-                            <!-- <div class="img"><img src="anh/Cau_Long.png" alt="Cầu Lông"></div> -->
-                            <p>Cầu lông - Môn thể thao yêu thích, dù bận rộn vẫn cố gắng dành
-                                thời gian chơi.</p>
-                            <span>Hover here</span>
-                            <div class="pic"></div>
-                            <button></button>
-                        </div>
+        </div>
+    </section>
+    <section id="skills" class="skills-section">
+        <!-- Phần bên phải - Sở thích -->
+        <div class="interests-container">
+            <div class="interests-section">
+                <h3 class="interests-title">Sở Thích và Kĩ Năng của Tôi</h3>
+            </div>
+            <!-- Menu -->
+            <div class="tab-menu-skills">
+                <button class="tab-link " onclick="openTab(event, 'favorite_id')">Sở thích</button>
+                <button class="tab-link active" onclick="openTab(event, 'skills_id')">Kĩ năng</button>
+            </div>
+            <div id="favorite_id" class="favorite_content">
+                <div class="hobbies-container">
+                    <div class="card Bia">
+                        <h2>Billiards</h2>
+                        <p>Billiards - Tuy không chơi hay nhưng rất đam mê, thỉnh thoảng
+                            thức đêm để chơi.</p>
+                        <span>Hover here</span>
+                        <div class="pic"></div>
+                        <button></button>
+                    </div>
+                    <div class="card Phuot">
+                        <h2>Phượt</h2>
+                        <p>Phượt - Niềm đam mê khám phá những vùng đất mới, tạo ra những kỷ
+                            niệm đáng nhớ.</p>
+                        <span>Hover here</span>
+                        <div class="pic"></div>
+                        <button></button>
+                    </div>
+                    <div class="card CauLong">
+                        <h2>Cầu lông</h2>
+                        <p>Cầu lông - Môn thể thao yêu thích, dù bận rộn vẫn cố gắng dành
+                            thời gian chơi.</p>
+                        <span>Hover here</span>
+                        <div class="pic"></div>
+                        <button></button>
                     </div>
                 </div>
             </div>
+            <div id="skills_id" class="favorite_content active">
+                <ul>
+                    <li><i class="devicon-html5-plain colored"></i> HTML</li>
+                    <li><i class="devicon-css3-plain colored"></i> CSS</li>
+                    <li><i class="devicon-javascript-plain colored"></i> JavaScript</li>
+                    <li><i class="devicon-java-plain colored"></i> Java</li>
+                    <li><i class="devicon-mysql-plain colored"></i> MySQL</li>
+                    <li><i class="devicon-docker-plain colored"></i> Docker</li>
+                    <li><i class="devicon-spring-plain colored"></i> Spring Boot</li>
+                    <li><i class="devicon-git-plain colored"></i> Git</li>
+                    <li><i class="devicon-github-plain colored"></i> GitHub</li>
+                    <li><i class="devicon-react-original colored"></i> React</li>
+                    <li><i class="devicon-tailwindcss-plain colored"></i> TailwindCSS</li>
+                    <li><i class="devicon-bootstrap-plain colored"></i> Bootstrap</li>
+                </ul>
+            </div>
         </div>
     </section>
+
     <script src="GioiThieuCaNhan.js"></script>
 </body>
 
